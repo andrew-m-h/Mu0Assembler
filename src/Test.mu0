@@ -1,8 +1,6 @@
-mem Andrew : {1, 2, 3, 4, 5}
+mem Nums : {7, 100}
 
-START: LDA [Andrew]
-SUB 7
-STO [Andrew]
-LDA [Andrew] + 1
-JGE [START]
+LDA [Nums]
+ADD [Nums] + 1
+STO [Nums] - 1
 STP

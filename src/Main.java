@@ -21,8 +21,9 @@ public class Main {
             Mu0BaseListener listener = new Mu0BaseListener();
             walker.walk(listener, programCtx);
 
-            if (args[1] == "-run"){
+            if (args[1].contentEquals("-run")){
                 Interpret interpreter = new Interpret(listener.ass.memory);
+                interpreter.Run();
                 for (MemoryCell i : interpreter.memory){
                     System.out.println(i);
                 }
