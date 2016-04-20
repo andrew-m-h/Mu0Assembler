@@ -4,5 +4,4 @@ all: Mu0.g4
 	$(ANTLR4) Mu0.g4
 
 clean:
-	rm *.tokens
-	rm Mu0*.java
+	rm Mu0*.class

@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         try {
 
-            Mu0Lexer lex = new Mu0Lexer(new org.antlr.v4.runtime.ANTLRFileStream(args[1]));
+            Mu0Lexer lex = new Mu0Lexer(new org.antlr.v4.runtime.ANTLRFileStream(args[0]));
             CommonTokenStream tokens = new CommonTokenStream(lex);
 
             Mu0Parser parser = new Mu0Parser(tokens);
@@ -21,14 +21,18 @@ public class Main {
             Mu0BaseListener listener = new Mu0BaseListener();
             walker.walk(listener, programCtx);
 
-            for (int i = 0; i < listener.ass.memory.length; i++){
-                System.out.println(i + " : " + listener.ass.memory[i]);
+            if (args[1] == "-run"){
+                Interpret interpreter = new Interpret(listener.ass.memory);
+                for (MemoryCell i : interpreter.memory){
+                    System.out.println(i);
+                }
+            } else {
+                for (MemoryCell i : listener.ass.memory) {
+                    System.out.println(i);
+                }
             }
-            Interpret interpreter = new Interpret(listener.ass.memory);
-            System.out.println("Output Data");
-            for (int i = Assemble.MEMORY_SIZE - 20; i < Assemble.MEMORY_SIZE; i++){
-                System.out.println(i + " : " + interpreter.memory[i]);
-            }
+
+
 
         } catch (IOException e){
             System.out.println("Parse Error");

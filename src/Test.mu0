@@ -1,0 +1,8 @@
+mem Andrew : {1, 2, 3, 4, 5}
+
+START: LDA [Andrew]
+SUB 7
+STO [Andrew]
+LDA [Andrew] + 1
+JGE [START]
+STP

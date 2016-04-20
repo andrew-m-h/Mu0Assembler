@@ -31,15 +31,16 @@ public class Mu0BaseListener implements Mu0Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterInstruction(Mu0Parser.InstructionContext ctx) { }
-    Assemble ass = new Assemble();
 
-    @Override public void exitInstruction(Mu0Parser.InstructionContext ctx){
-        try {
-            ass.AssembleInstruction(ctx);
-        }catch(ParseException e){
-            return;
-        }
-    }
+	Assemble ass = new Assemble();
+
+	@Override public void exitInstruction(Mu0Parser.InstructionContext ctx){
+		try {
+			ass.AssembleInstruction(ctx);
+		}catch(ParseException e){
+			return;
+		}
+	}
 	/**
 	 * {@inheritDoc}
 	 *
