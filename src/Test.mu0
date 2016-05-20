@@ -3,4 +3,5 @@ mem Nums : {7, 100}
 LDA [Nums]
 ADD [Nums] + 1
 STO [Nums] - 1
+PRINT [Nums] - 1
 STP

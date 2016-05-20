@@ -3,8 +3,8 @@
  */
 public class Interpret {
     public static final int MEMORY_SIZE = 4096;
-    short pc = 0;
-    short acc = 0;
+    int pc = 0;
+    int acc = 0;
     public MemoryCell[] memory;
 
     public Interpret(){
@@ -18,10 +18,37 @@ public class Interpret {
         memory = mem;
     }
 
+    public static String Decompile(int operand){
+        int operator = operand >> 12;
+        int addr = operand & 0b0000_1111_1111_1111;
+
+        switch (operator) {
+            case 0b0000: //LDA
+                return "LDA " + addr;
+            case 0b0001: //STO
+                return "STO " + addr;
+            case 0b0010: //ADD
+                return "ADD " + addr;
+            case 0b0011: //SUB
+                return "SUB " + addr;
+            case 0b0100: //JMP
+                return "JMP " + addr;
+            case 0b0101: //JGE
+                return "JGE " + addr;
+            case 0b0110: //JNE
+                return "JNE " + addr;
+            case 0b0111: //STP
+                return "STP";
+            case 0b1111: //PRINT
+                return "PRINT " + addr;
+        }
+        return "";
+    }
+
     public void Run(){
         while (true) {
-            short operator = (short)(memory[pc].Cell >> 12);
-            short addr = (short)(memory[pc].Cell & 0b0000_1111_1111_1111);
+            int operator = memory[pc].Cell >> 12;
+            int addr = memory[pc].Cell & 0b0000_1111_1111_1111;
             pc++;
             switch (operator) {
                 case 0b0000: //LDA
@@ -49,6 +76,9 @@ public class Interpret {
                     break;
                 case 0b0111: //STP
                     return;
+                case 0b1111: //PRINT
+                    System.out.println(memory[addr].Cell);
+                    break;
             }
         }
     }

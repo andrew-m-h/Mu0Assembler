@@ -9,6 +9,8 @@ JGE: 'JGE';
 JNE: 'JNE';
 STP: 'STP';
 
+PRINT: 'PRINT'; //non standard IO operator
+
 MEM: 'mem';
 
 fragment DIGIT : '0'..'9';
@@ -16,6 +18,8 @@ NUMBER : DIGIT+;
 
 PLUS     : '+' ;
 MINUS    : '-' ;
+TIMES    : '*' ;
+DIVIDE   : '/' ;
 
 fragment LOWER : 'a'..'z';
 fragment UPPER : 'A'..'Z';
@@ -27,7 +31,9 @@ NL : ('\n' | '\r' | '\u000C') -> skip;
 //Parser Rules
 
 expr
-   : expr PLUS expr
+   : expr TIMES expr
+   | expr DIVIDE expr
+   | expr PLUS expr
    | expr MINUS expr
    | LABLEVAR
    | NUMBER ;
@@ -41,18 +47,7 @@ instruction
     | (LABEL ':')? JGE expr
     | (LABEL ':')? JNE expr
     | (LABEL ':')? STP
+    | (LABEL ':')? PRINT expr //IO
     | MEM LABEL ':' '{' (NUMBER ',')* NUMBER '}';
 
-/*
-instruction
-    : (LABEL ':')? LDA (NUMBER | LABLEVAR)
-    | (LABEL ':')? STO (NUMBER | LABLEVAR)
-    | (LABEL ':')? ADD (NUMBER | LABLEVAR)
-    | (LABEL ':')? SUB (NUMBER | LABLEVAR)
-    | (LABEL ':')? JMP (NUMBER | LABLEVAR)
-    | (LABEL ':')? JGE (NUMBER | LABLEVAR)
-    | (LABEL ':')? JNE (NUMBER | LABLEVAR)
-    | (LABEL ':')? STP
-    | MEM LABEL ':' '{' (NUMBER ',')* NUMBER '}';
-*/
 program : instruction+;

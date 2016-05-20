@@ -4,7 +4,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import java.io.IOException;
 
 /**
- * Created by andrew on 4/20/16.
+ Created by andrew on 4/20/16.
  */
 public class Main {
 
@@ -25,15 +25,13 @@ public class Main {
                 Interpret interpreter = new Interpret(listener.ass.memory);
                 interpreter.Run();
                 for (MemoryCell i : interpreter.memory){
-                    System.out.println(i);
+                    System.out.println(i + "\t// " + Interpret.Decompile(i.Cell));
                 }
             } else {
                 for (MemoryCell i : listener.ass.memory) {
                     System.out.println(i);
                 }
             }
-
-
 
         } catch (IOException e){
             System.out.println("Parse Error");
