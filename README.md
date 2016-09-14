@@ -1,6 +1,6 @@
 # Mu0 Assembler
 
-##### By Andrew M. Hall
+##### By Andrew Hall
 
 ### Overview
 This project has been inspired by the anu course ENGN 3213 and attempts to alleviate the annoyance of
